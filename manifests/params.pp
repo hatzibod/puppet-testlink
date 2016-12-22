@@ -70,7 +70,7 @@ class testlink::params {
   case $::operatingsystem {
     redhat, centos:  {
       $doc_root           = "/var/www/$vhost_name_def"
-      $packages           = [ 'php', 'php-mysql', 'php-gd', 'php-ldap', 'wget']
+      $packages           = [ 'php', 'php-mysql', 'php-gd', 'php-ldap']
       $apache             = 'httpd'
       $apache_user        = 'apache'
       $php_file_location  = '/etc/php.ini'
@@ -78,7 +78,7 @@ class testlink::params {
     }
     debian:  {
       $doc_root           = "/var/www/$vhost_name_def"
-      $packages           = [ 'php5', 'php5-mysql', 'php5-gd', 'php5-ldap', 'wget']
+      $packages           = [ 'php5', 'php5-mysql', 'php5-gd', 'php5-ldap']
       $apache             = 'apache2'
       $apache_user        = 'www-data'
       $php_file_location  = '/etc/php5/apache2/php.ini'
@@ -86,7 +86,7 @@ class testlink::params {
     }
     ubuntu:  {
       $doc_root           = "/var/www/$vhost_name_def"
-      $packages           = [ 'php5', 'php5-mysql', 'php5-gd', 'php5-ldap', 'wget']
+      $packages           = [ 'php5', 'php5-mysql', 'php5-gd', 'php5-ldap']
       $apache             = 'apache2'
       $apache_user        = 'www-data'
       $php_file_location  = '/etc/php5/apache2/php.ini'
