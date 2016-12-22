@@ -29,7 +29,7 @@ describe 'testlink', :type => :class do
       should contain_class('testlink::params')
       should contain_package('php5').with('ensure' => 'latest')
       should contain_package('php5-mysql').with('ensure'=> 'latest')
-      should contain_class('mysql::server').with('config_hash' => {'root_password' => 'long_password'})
+      should contain_class('mysql').with('config_hash' => {'root_password' => 'long_password'})
 #      should contain_class('memcached').with('max_memory' => '2048')
     }
   end
@@ -63,7 +63,7 @@ describe 'testlink', :type => :class do
       should contain_class('testlink::params')
       should contain_package('php5').with('ensure' => 'installed')
       should contain_package('php5-mysql').with('ensure' => 'installed')
-      should contain_class('mysql::server').with('config_hash' => {'root_password' => 'long_password'})
+      should contain_class('mysql').with('config_hash' => {'root_password' => 'long_password'})
 #      should contain_class('memcached').with('max_memory' => '1024')
     }
   end

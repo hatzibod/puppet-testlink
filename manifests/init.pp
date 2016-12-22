@@ -57,7 +57,7 @@ class testlink (
   #$testlink_instance_install_path   = "/var/www"
   
   # Specify dependencies
-  Class['mysql::server'] -> Class['testlink']
+  Class['mysql'] -> Class['testlink']
   #Class['mysql::config'] -> Class['testlink']
   
   class { 'apache': 
@@ -66,7 +66,7 @@ class testlink (
   class { 'apache::mod::php': }
   
   # Manages the mysql server package and service by default
-  class { 'mysql::server':
+  class { 'mysql':
     root_password => $db_root_password,
   }
 
