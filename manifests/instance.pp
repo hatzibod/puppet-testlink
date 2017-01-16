@@ -102,7 +102,6 @@ define testlink::instance (
         mysql_host       => 'localhost',
         mysql_privileges => 'all',
         #sql      => '/var/www/install/sql/mysql/testlink_create_tables.sql',
-        require          => Exec['unpack-testlink'],
       }
 
       # Find a way to execute multiple sql files at the above step
