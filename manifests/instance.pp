@@ -96,13 +96,13 @@ define testlink::instance (
   case $ensure {
     'present', 'absent': {
     
-      mysql::db { $db_name:
-        user     => $db_user,
-        password => $db_password,
-        host     => 'localhost',
-        grant    => ['SELECT','UPDATE','INSERT','DELETE'],
+      mysql::grant { $db_name:
+        mysql_user       => $db_user,
+        mysql_password   => $db_password,
+        mysql_host       => 'localhost',
+        mysql_privileges => 'all',
         #sql      => '/var/www/install/sql/mysql/testlink_create_tables.sql',
-        require => Exec['unpack-testlink'],
+        require          => Exec['unpack-testlink'],
       }
 
       # Find a way to execute multiple sql files at the above step
@@ -158,11 +158,11 @@ define testlink::instance (
       }
 
       mysql::db { $db_name:
-        user     => $db_user,
-        password => $db_password,
-        host     => 'localhost',
-        grant    => ['all'],
-        ensure   => 'absent',
+        mysql_user       => $db_user,
+        mysql_password   => $db_password,
+        mysql_host       => 'localhost',
+        mysql_privileges => 'all',
+        ensure           => 'absent',
       }
 
       apache::vhost { $name:
