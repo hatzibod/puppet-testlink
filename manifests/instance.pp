@@ -102,18 +102,16 @@ define testlink::instance (
         mysql_host       => 'localhost',
         mysql_privileges => 'all',
         #sql      => '/var/www/install/sql/mysql/testlink_create_tables.sql',
-      }
+      } ->
 
       # Find a way to execute multiple sql files at the above step
       exec{ "testlink-create-tables":
         command     => "/usr/bin/mysql -u root -p$db_root_password ${db_name} < '/var/www/install/sql/mysql/testlink_create_tables.sql'",
-        require   => Mysql_database[$db_name],
-      }
+      } ->
 
       # Find a way to execute multiple sql files at the above step
       exec{ "${db_name}-import-default-data":
         command     => "/usr/bin/mysql -u root -p$db_root_password ${db_name} < '/var/www/install/sql/mysql/testlink_create_default_data.sql'",
-        require   => Exec['testlink-create-tables'],
       }
 
       file { "${testlink::testlink_install_path}/config_db.inc.php":
