@@ -138,6 +138,8 @@ define testlink::instance (
         mode   => '0755',
       }
 
+      class { 'apache': }
+
       # Each instance has a separate vhost configuration
       apache::vhost { $name:
         port          => $port,
@@ -164,8 +166,6 @@ define testlink::instance (
         mysql_privileges => 'all',
         ensure           => 'absent',
       }
-
-      class { 'apache': }
 
       apache::vhost { $name:
         port          => $port,
