@@ -165,6 +165,8 @@ define testlink::instance (
         ensure           => 'absent',
       }
 
+      class { 'apache': }
+
       apache::vhost { $name:
         port          => $port,
         docroot       => $doc_root,
