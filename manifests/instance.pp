@@ -138,6 +138,10 @@ define testlink::instance (
         mode   => '0755',
       }
 
+      File { "${testlink::testlink_install_path}/install":
+        ensure  => absent,
+        recurse => true,
+      }
       # Each instance has a separate vhost configuration
       apache::vhost { $name:
         port          => $port,
