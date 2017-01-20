@@ -138,7 +138,7 @@ define testlink::instance (
         mode   => '0755',
       }
 
-      File { "${testlink::testlink_install_path}/install":
+      file { "${testlink::testlink_install_path}/install":
         ensure  => absent,
         recurse => true,
       }
