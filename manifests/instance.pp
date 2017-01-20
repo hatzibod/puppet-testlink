@@ -57,10 +57,12 @@ define testlink::instance (
   $smtp_auth,
   $smtp_username,
   $smtp_password,
+  $from_email,
+  $return_path_email,
   $vhost_name_def,
   ) {
 
-  include testlink::params
+  include testlink
   
   validate_re($ensure, '^(present|absent|deleted)$',
   "${ensure} is not supported for ensure.
@@ -97,21 +99,22 @@ define testlink::instance (
     'present', 'absent': {
     
       mysql::grant { $db_name:
-        mysql_user       => $db_user,
-        mysql_password   => $db_password,
-        mysql_host       => 'localhost',
-        mysql_privileges => 'all',
+        mysql_user               => $db_user,
+        mysql_password           => $db_password,
+        mysql_host               => 'localhost',
+        mysql_privileges         => 'all',
+        #mysql_db_init_query_file => '/var/www/install/sql/mysql/testlink_create_tables.sql',
         #sql      => '/var/www/install/sql/mysql/testlink_create_tables.sql',
       } ->
 
       # Find a way to execute multiple sql files at the above step
       exec{ "testlink-create-tables":
-        command     => "/usr/bin/mysql -u root -p ${db_root_password} ${db_name} < '/var/www/install/sql/mysql/testlink_create_tables.sql'",
+        command     => "/usr/bin/mysql -u root -p${db_root_password} ${db_name} < '/var/www/install/sql/mysql/testlink_create_tables.sql'",
       } ->
 
       # Find a way to execute multiple sql files at the above step
       exec{ "${db_name}-import-default-data":
-        command     => "/usr/bin/mysql -u root -p ${db_root_password} ${db_name} < '/var/www/install/sql/mysql/testlink_create_default_data.sql'",
+        command     => "/usr/bin/mysql -u root -p${db_root_password} ${db_name} < '/var/www/install/sql/mysql/testlink_create_default_data.sql'",
       }
 
       file { "${testlink::testlink_install_path}/config_db.inc.php":
@@ -134,8 +137,6 @@ define testlink::instance (
         group  => $testlink::params::apache_user,
         mode   => '0755',
       }
-
-      class { 'apache': }
 
       # Each instance has a separate vhost configuration
       apache::vhost { $name:
