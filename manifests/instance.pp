@@ -141,6 +141,7 @@ define testlink::instance (
       file { "${testlink::testlink_install_path}/install":
         ensure  => absent,
         recurse => true,
+        force   => true,
       }
       # Each instance has a separate vhost configuration
       apache::vhost { $name:
